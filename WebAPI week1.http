@@ -1,0 +1,21 @@
+//@WebAPI week1_HostAddress = https://localhost:7215
+@WebAPI_week1_HostAddress = http://localhost:5175
+
+GET {{WebAPI_week1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{WebAPI_week1_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "name":"walk dog",
+  "isComplete":true
+}
+
+###
+
+GET {{WebAPI_week1_HostAddress}}/todoitems
+
+###
