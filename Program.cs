@@ -1,16 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+//using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
+//using Microsoft.Extensions.DependencyInjection;
+//using Microsoft.Extensions.Hosting;
 using WebAPI_week1;
+using WebAPI_week1.WeatherWorkers;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
+
 string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(MyAllowSpecificOrigins, builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
+
+builder.Services.AddHostedService<WeatherWorker>();
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

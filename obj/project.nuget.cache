@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3JYxikyT9bw=",
+  "dgSpecHash": "1925tBz11wM=",
   "success": true,
   "projectFilePath": "C:\\Users\\radu.merfu\\source\\repos\\WebAPI week1 solution\\WebAPI week1\\WebAPI week1.csproj",
   "expectedPackageFiles": [
@@ -59,6 +59,7 @@
     "C:\\Users\\radu.merfu\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\radu.merfu\\.nuget\\packages\\npgsql\\8.0.0\\npgsql.8.0.0.nupkg.sha512",
     "C:\\Users\\radu.merfu\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.0\\npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512",
+    "C:\\Users\\radu.merfu\\.nuget\\packages\\quartz\\3.13.0\\quartz.3.13.0.nupkg.sha512",
     "C:\\Users\\radu.merfu\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\radu.merfu\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\radu.merfu\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

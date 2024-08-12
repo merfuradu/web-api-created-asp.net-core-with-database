@@ -1121,6 +1121,22 @@
           }
         }
       },
+      "Quartz/3.13.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1"
+        },
+        "compile": {
+          "lib/net6.0/Quartz.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Quartz.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -3850,6 +3866,27 @@
         "postgresql.png"
       ]
     },
+    "Quartz/3.13.0": {
+      "sha512": "ddD1CPjWcDMbKdAhzuna3Ng23Sdv1YtuHbFMdAAFw0eBEj9jnadYkDWiKGo/c7BMnbI/ruuyd370sKVgdMCkDA==",
+      "type": "package",
+      "path": "quartz/3.13.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/Quartz.dll",
+        "lib/net462/Quartz.xml",
+        "lib/net472/Quartz.dll",
+        "lib/net472/Quartz.xml",
+        "lib/net6.0/Quartz.dll",
+        "lib/net6.0/Quartz.xml",
+        "lib/netstandard2.0/Quartz.dll",
+        "lib/netstandard2.0/Quartz.xml",
+        "quartz-logo-small.png",
+        "quartz.3.13.0.nupkg.sha512",
+        "quartz.nuspec",
+        "quick-start.md"
+      ]
+    },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "sha512": "9kyFSIdN3T0qjDQ2R0HRXYIhS3l5psBzQi6qqhdLz+SzFyEy4sVxNOke+yyYv8Cu8rPER12c3RDjLT8wF3WBYQ==",
       "type": "package",
@@ -5777,6 +5814,7 @@
       "Microsoft.EntityFrameworkCore.InMemory >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0",
+      "Quartz >= 3.13.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -5858,6 +5896,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
             "version": "[8.0.0, )"
+          },
+          "Quartz": {
+            "target": "Package",
+            "version": "[3.13.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

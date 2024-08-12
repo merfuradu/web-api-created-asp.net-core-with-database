@@ -16,6 +16,7 @@
           "Microsoft.EntityFrameworkCore.InMemory": "8.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.0",
+          "Quartz": "3.13.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -749,6 +750,17 @@
           "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.0.0"
+          }
+        }
+      },
+      "Quartz/3.13.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Quartz.dll": {
+            "assemblyVersion": "3.13.0.0",
+            "fileVersion": "3.13.0.0"
           }
         }
       },
@@ -1537,6 +1549,13 @@
       "sha512": "sha512-GDXiMS9peEdjSCU/rfgyHruio7q6tYuywGaktqEi6UPQ6ILechp3fVVX+dHXkIXt4nklCBzYVWkzFrSL9ubKUA==",
       "path": "npgsql.entityframeworkcore.postgresql/8.0.0",
       "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512"
+    },
+    "Quartz/3.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ddD1CPjWcDMbKdAhzuna3Ng23Sdv1YtuHbFMdAAFw0eBEj9jnadYkDWiKGo/c7BMnbI/ruuyd370sKVgdMCkDA==",
+      "path": "quartz/3.13.0",
+      "hashPath": "quartz.3.13.0.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",

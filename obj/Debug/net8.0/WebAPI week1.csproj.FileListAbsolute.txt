@@ -153,3 +153,4 @@ C:\Users\radu.merfu\source\repos\WebAPI week1 solution\WebAPI week1\bin\Debug\ne
 C:\Users\radu.merfu\source\repos\WebAPI week1 solution\WebAPI week1\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\radu.merfu\source\repos\WebAPI week1 solution\WebAPI week1\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\radu.merfu\source\repos\WebAPI week1 solution\WebAPI week1\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\radu.merfu\source\repos\WebAPI week1 solution\WebAPI week1\bin\Debug\net8.0\Quartz.dll
