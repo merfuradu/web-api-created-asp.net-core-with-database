@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI_week1;
@@ -11,9 +12,11 @@ using WebAPI_week1;
 namespace WebAPI_week1.Migrations
 {
     [DbContext(typeof(PersonsDB))]
-    partial class TodoDbModelSnapshot : ModelSnapshot
+    [Migration("20240812065523_AddressDTO")]
+    partial class AddressDTO
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,37 +52,7 @@ namespace WebAPI_week1.Migrations
 
                     b.HasIndex("PersonalDataId");
 
-                    b.ToTable("Addresses", (string)null);
-                });
-
-            modelBuilder.Entity("WebAPI_week1.Models.AddressDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("PersonalDataId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("text");
-
-                    b.Property<string>("State")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonalDataId");
-
-                    b.ToTable("AddressDTO", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("WebAPI_week1.Models.PersonalData", b =>
@@ -101,23 +74,16 @@ namespace WebAPI_week1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PersonalData", (string)null);
+                    b.ToTable("PersonalData");
                 });
 
             modelBuilder.Entity("WebAPI_week1.Models.Address", b =>
                 {
                     b.HasOne("WebAPI_week1.Models.PersonalData", "PersonalData")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("PersonalDataId");
 
                     b.Navigation("PersonalData");
-                });
-
-            modelBuilder.Entity("WebAPI_week1.Models.AddressDTO", b =>
-                {
-                    b.HasOne("WebAPI_week1.Models.PersonalData", null)
-                        .WithMany("Addresses")
-                        .HasForeignKey("PersonalDataId");
                 });
 
             modelBuilder.Entity("WebAPI_week1.Models.PersonalData", b =>

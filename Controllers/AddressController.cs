@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebAPI_week1.Models;
 
 namespace WebAPI_week1.Controllers
 {
@@ -7,48 +9,54 @@ namespace WebAPI_week1.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly TodoDb _context;
+        private readonly IMapper _mapper;
+        private readonly PersonsDB _context;
 
-        public AddressController(TodoDb context)
+        public AddressController(PersonsDB context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
-        [HttpGet("getaddresses")]
+        [HttpGet("GetAddresses")]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
         {
-            return await _context.Addresses.ToListAsync();
+            var addresses = await _context.Addresses.ToListAsync();
+            var addressesDto = _mapper.Map<List<Address>>(addresses);
+            return Ok(addressesDto);
         }
 
-        [HttpGet("getAddressesById/{id}")]
+        [HttpGet("GetAddressesById/{id}")]
         public async Task<ActionResult<Address>> GetAddressesById(int id)
         {
             var address = await _context.Addresses.FindAsync(id);
+            var addressDto = _mapper.Map<Address>(address);
 
-            if (address == null) 
+            if (addressDto == null) 
             {
                 return NotFound();
             }
 
-            return address;
+            return Ok(addressDto);
         }
 
         [HttpPost("PostAddress")]
-        public async Task<ActionResult<Address>> PostAddress(Address address)
+        public async Task<ActionResult<Address>> PostAddress(AddressDTO addressDto)
         {
+            var address = _mapper.Map<Address>(addressDto);
             _context.Addresses.Add(address);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAddressesById), new {id = address.Id}, address);
+            return CreatedAtAction(nameof(GetAddressesById), new {id = address.Id}, _mapper.Map<AddressDTO>(address));
         }
 
         [HttpPut("PutAddress/{id}")]
         //[Route("api/addresses/update/{id}")]
-        public async Task<IActionResult> PutAddress(int id, Address address)
+        public async Task<IActionResult> PutAddress(int id, AddressDTO addressDto)
         {
-            if (id != address.Id)
+            if (id != addressDto.Id)
             {
-                return BadRequest();
+                return BadRequest("The id s in the request are not the same");
             }
 
             var existingAddress = await _context.Addresses.FindAsync(id);
@@ -57,14 +65,7 @@ namespace WebAPI_week1.Controllers
                 return NotFound();
             }
 
-            existingAddress.Street = address.Street;
-            existingAddress.City = address.City;
-            existingAddress.State = address.State;
-            existingAddress.PostalCode = address.PostalCode;
-
-            //_context.Update(existingAddress);
-
-            //_context.Entry(existingAddress).State = EntityState.Modified;
+            _mapper.Map(addressDto, existingAddress);
 
             try
             {
@@ -87,12 +88,12 @@ namespace WebAPI_week1.Controllers
         [HttpDelete("DeleteAddress/{id}")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
-            if (id < 0) { return BadRequest(); }
+            if (id < 0) { return BadRequest("Invalid ID"); }
 
             var address = await _context.Addresses.FindAsync(id);
             if (address == null)
             {
-                return NotFound();
+                return NotFound("Address not found.");
             }
 
             _context.Addresses.Remove(address);
@@ -100,6 +101,20 @@ namespace WebAPI_week1.Controllers
             return NoContent();
         }
 
+        [HttpDelete("DeleteAllAddresses")]
+        public async Task<IActionResult> DeleteAllAddresses()
+        {
+            var allAddresses = _context.Addresses.ToList();
+
+            if (!allAddresses.Any() || allAddresses == null)
+            {
+                return NotFound("There weren t any addresses to be deleted in the first place");
+            }
+
+            _context.Addresses.RemoveRange(allAddresses);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
         private bool AddressExists(int id)
         {
             return _context.Addresses.Any(a => a.Id == id);

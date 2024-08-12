@@ -12,13 +12,17 @@ builder.Services.AddCors(options =>
     options.AddPolicy(MyAllowSpecificOrigins, builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 builder.Services.AddControllers();
-builder.Services.AddDbContext<TodoDb>(options =>
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddDbContext<PersonsDB>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
 var scope = app.Services.CreateAsyncScope();
-var context = scope.ServiceProvider.GetRequiredService<TodoDb>();
+var context = scope.ServiceProvider.GetRequiredService<PersonsDB>();
 context.Database.Migrate();
 
 if (app.Environment.IsDevelopment())

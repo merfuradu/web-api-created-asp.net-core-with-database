@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Collections.Generic;
-namespace WebAPI_week1; 
+using WebAPI_week1.Models;
+namespace WebAPI_week1;
 
-    public class TodoDb : DbContext
+public class PersonsDB : DbContext
     {
-        public TodoDb(DbContextOptions<TodoDb> options)
+        public PersonsDB(DbContextOptions<PersonsDB> options)
         : base(options) { }
 
         public DbSet<PersonalData> PersonalDatas => Set<PersonalData>();

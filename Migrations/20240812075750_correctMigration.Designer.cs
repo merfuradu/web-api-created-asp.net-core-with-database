@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI_week1;
@@ -11,9 +12,11 @@ using WebAPI_week1;
 namespace WebAPI_week1.Migrations
 {
     [DbContext(typeof(PersonsDB))]
-    partial class TodoDbModelSnapshot : ModelSnapshot
+    [Migration("20240812075750_correctMigration")]
+    partial class correctMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace WebAPI_week1.Migrations
 
                     b.HasIndex("PersonalDataId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("WebAPI_week1.Models.AddressDTO", b =>
@@ -79,7 +82,7 @@ namespace WebAPI_week1.Migrations
 
                     b.HasIndex("PersonalDataId");
 
-                    b.ToTable("AddressDTO", (string)null);
+                    b.ToTable("AddressDTO");
                 });
 
             modelBuilder.Entity("WebAPI_week1.Models.PersonalData", b =>
@@ -101,7 +104,7 @@ namespace WebAPI_week1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PersonalData", (string)null);
+                    b.ToTable("PersonalData");
                 });
 
             modelBuilder.Entity("WebAPI_week1.Models.Address", b =>
