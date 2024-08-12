@@ -1,6 +1,3 @@
-Here's a `README.md` file for your ASP.NET Core Web API project:
-
-```markdown
 # ASP.NET Core Web API with PostgreSQL
 
 ## Overview
