@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI_week1;
@@ -11,9 +12,11 @@ using WebAPI_week1;
 namespace WebAPI_week1.Migrations
 {
     [DbContext(typeof(PersonsDB))]
-    partial class TodoDbModelSnapshot : ModelSnapshot
+    [Migration("20240813075149_DatumMigration")]
+    partial class DatumMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,109 +57,113 @@ namespace WebAPI_week1.Migrations
 
             modelBuilder.Entity("WebAPI_week1.Models.Datum", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DId"));
 
-                    b.Property<float?>("AppTemp")
+                    b.Property<float>("AppTemp")
                         .HasColumnType("real");
 
-                    b.Property<float?>("Clouds")
-                        .HasColumnType("real");
+                    b.Property<int>("Clouds")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("CloudsHi")
-                        .HasColumnType("real");
+                    b.Property<int>("CloudsHi")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("CloudsLow")
-                        .HasColumnType("real");
+                    b.Property<int>("CloudsLow")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("CloudsMid")
-                        .HasColumnType("real");
+                    b.Property<int>("CloudsMid")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Datetime")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<float?>("Dewpt")
+                    b.Property<float>("Dewpt")
                         .HasColumnType("real");
 
-                    b.Property<float?>("Dhi")
-                        .HasColumnType("real");
+                    b.Property<int>("Dhi")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("Dni")
-                        .HasColumnType("real");
+                    b.Property<int>("Dni")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("Ghi")
-                        .HasColumnType("real");
+                    b.Property<int>("Ghi")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("Ozone")
-                        .HasColumnType("real");
+                    b.Property<int>("Ozone")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Pod")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<float?>("Pop")
+                    b.Property<int>("Pop")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Precip")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Pres")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Rh")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Slp")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Snow")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SnowDepth")
+                        .HasColumnType("integer");
+
+                    b.Property<float>("SolarRad")
                         .HasColumnType("real");
 
-                    b.Property<float?>("Precip")
+                    b.Property<float>("Temp")
                         .HasColumnType("real");
 
-                    b.Property<float?>("Pres")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("Rh")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("Slp")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("Snow")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("SnowDepth")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("SolarRad")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("Temp")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime?>("TimestampLocal")
+                    b.Property<DateTime>("TimestampLocal")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("TimestampUtc")
+                    b.Property<DateTime>("TimestampUtc")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<float?>("Ts")
-                        .HasColumnType("real");
+                    b.Property<int>("Ts")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("Uv")
-                        .HasColumnType("real");
+                    b.Property<int>("Uv")
+                        .HasColumnType("integer");
 
-                    b.Property<float?>("Vis")
+                    b.Property<float>("Vis")
                         .HasColumnType("real");
 
                     b.Property<int>("WeatherId")
                         .HasColumnType("integer");
 
                     b.Property<string>("WindCdir")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("WindCdirFull")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<float?>("WindDir")
+                    b.Property<int>("WindDir")
+                        .HasColumnType("integer");
+
+                    b.Property<float>("WindGustSpd")
                         .HasColumnType("real");
 
-                    b.Property<float?>("WindGustSpd")
+                    b.Property<float>("WindSpd")
                         .HasColumnType("real");
 
-                    b.Property<float?>("WindSpd")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
+                    b.HasKey("DId");
 
                     b.HasIndex("WeatherId");
 
@@ -187,31 +194,35 @@ namespace WebAPI_week1.Migrations
 
             modelBuilder.Entity("WebAPI_week1.Models.Weather", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WId"));
 
-                    b.Property<string>("city_name")
+                    b.Property<string>("CityName")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("country_code")
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<float>("lat")
+                    b.Property<float>("Lat")
                         .HasColumnType("real");
 
-                    b.Property<float>("lon")
+                    b.Property<float>("Lon")
                         .HasColumnType("real");
 
-                    b.Property<string>("state_code")
+                    b.Property<string>("StateCode")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("timezone")
+                    b.Property<string>("Timezone")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("WId");
 
                     b.ToTable("Weathers");
                 });

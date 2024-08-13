@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI_week1;
@@ -11,9 +12,11 @@ using WebAPI_week1;
 namespace WebAPI_week1.Migrations
 {
     [DbContext(typeof(PersonsDB))]
-    partial class TodoDbModelSnapshot : ModelSnapshot
+    [Migration("20240813130636_NamingAttributesDTO")]
+    partial class NamingAttributesDTO
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,22 +196,22 @@ namespace WebAPI_week1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("city_name")
+                    b.Property<string>("CityName")
                         .HasColumnType("text");
 
-                    b.Property<string>("country_code")
+                    b.Property<string>("CountryCode")
                         .HasColumnType("text");
 
-                    b.Property<float>("lat")
+                    b.Property<float>("Lat")
                         .HasColumnType("real");
 
-                    b.Property<float>("lon")
+                    b.Property<float>("Lon")
                         .HasColumnType("real");
 
-                    b.Property<string>("state_code")
+                    b.Property<string>("StateCode")
                         .HasColumnType("text");
 
-                    b.Property<string>("timezone")
+                    b.Property<string>("Timezone")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

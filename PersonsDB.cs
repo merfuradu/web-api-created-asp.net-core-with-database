@@ -11,5 +11,7 @@ public class PersonsDB : DbContext
 
         public DbSet<PersonalData> PersonalDatas => Set<PersonalData>();
         public DbSet<Address> Addresses => Set<Address>();
+        public DbSet<Weather> Weathers { get; set; }
+        public DbSet<Datum> DataPoints { get; set; }
 
-    }
+}

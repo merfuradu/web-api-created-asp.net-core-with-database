@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI_week1;
@@ -11,9 +12,11 @@ using WebAPI_week1;
 namespace WebAPI_week1.Migrations
 {
     [DbContext(typeof(PersonsDB))]
-    partial class TodoDbModelSnapshot : ModelSnapshot
+    [Migration("20240813090118_nullableWeather")]
+    partial class nullableWeather
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,11 +57,11 @@ namespace WebAPI_week1.Migrations
 
             modelBuilder.Entity("WebAPI_week1.Models.Datum", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DId"));
 
                     b.Property<float?>("AppTemp")
                         .HasColumnType("real");
@@ -145,6 +148,7 @@ namespace WebAPI_week1.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("WindCdirFull")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<float?>("WindDir")
@@ -156,7 +160,7 @@ namespace WebAPI_week1.Migrations
                     b.Property<float?>("WindSpd")
                         .HasColumnType("real");
 
-                    b.HasKey("Id");
+                    b.HasKey("DId");
 
                     b.HasIndex("WeatherId");
 
@@ -187,31 +191,31 @@ namespace WebAPI_week1.Migrations
 
             modelBuilder.Entity("WebAPI_week1.Models.Weather", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WId"));
 
-                    b.Property<string>("city_name")
+                    b.Property<string>("CityName")
                         .HasColumnType("text");
 
-                    b.Property<string>("country_code")
+                    b.Property<string>("CountryCode")
                         .HasColumnType("text");
 
-                    b.Property<float>("lat")
+                    b.Property<float>("Lat")
                         .HasColumnType("real");
 
-                    b.Property<float>("lon")
+                    b.Property<float>("Lon")
                         .HasColumnType("real");
 
-                    b.Property<string>("state_code")
+                    b.Property<string>("StateCode")
                         .HasColumnType("text");
 
-                    b.Property<string>("timezone")
+                    b.Property<string>("Timezone")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("WId");
 
                     b.ToTable("Weathers");
                 });
