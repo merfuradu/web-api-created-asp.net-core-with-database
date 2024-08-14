@@ -35,7 +35,7 @@ namespace WebAPI_week1.WeatherWorkers
 
                 await FetchAndSaveWeatherDataAsync();
 
-                await Task.Delay(1000000, cancellationToken); // Delay for 1000 seconds
+                await Task.Delay(1500000, cancellationToken); // Delay for 1500 seconds
             }
         }
 
@@ -50,16 +50,16 @@ namespace WebAPI_week1.WeatherWorkers
             context.Weathers.RemoveRange(context.Weathers);
             await context.SaveChangesAsync();
 
-         
+
 
 
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://weatherbit-v1-mashape.p.rapidapi.com/current?lon=44.42&lat=26&units=imperial&lang=en"),
+                RequestUri = new Uri("https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=44.42&lon=26&units=metric&lang=en"),
                 Headers =
                 {
-                    { "x-rapidapi-key", "e7f54b7c50msh25752da413ad811p14d90fjsnf7d56c6b4027" },
+                    { "x-rapidapi-key", "4e4a7e4304mshec7fc0b407a4e13p1dcd8bjsn6a8b0f49b2d8" },
                     { "x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com" },
                 },
             };
@@ -69,27 +69,71 @@ namespace WebAPI_week1.WeatherWorkers
                 if (response.IsSuccessStatusCode)
                 {
                     var responseBody = await response.Content.ReadAsStringAsync();
-                    var weatherDto = JsonConvert.DeserializeObject<WeatherDTO>(responseBody);
+                    var weatherRoot = JsonConvert.DeserializeObject<WeatherDTO>(responseBody);
 
-                    if (weatherDto != null)
+                    if (weatherRoot != null)
                     {
                         // Map DTO to Entity
-                        var weatherEntity = _mapper.Map<Weather>(weatherDto);
-
-                        // Save to database
-                        context.Weathers.Add(weatherEntity);
-                        //await context.SaveChangesAsync();
-                        
-
-
-                        foreach (var datumDto in weatherDto.data)
+                        //var weatherEntity = _mapper.Map<Weather>(weatherDto);
+                        var weatherEntity = new Weather
                         {
-                            var datumEntity = _mapper.Map<Datum>(datumDto);
-                            datumEntity.WeatherId = weatherEntity.Id; // Ensure proper foreign key assignment
-                            context.DataPoints.Add(datumEntity);
-                        }
+                            city_name = weatherRoot.city_name,
+                            state_code = weatherRoot.state_code,
+                            country_code = weatherRoot.country_code,
+                            timezone = weatherRoot.timezone,
+                            lon = weatherRoot.lon,
+                            lat = weatherRoot.lat,
+                        };
 
-                        await context.SaveChangesAsync(); // Save all the data points to the data
+                        context.Weathers.Add(weatherEntity);
+                        context.SaveChanges();
+
+                        var dataPointsList = weatherRoot.data.Select(d =>  new Datum
+                        {
+                            WeatherId = weatherEntity.Id,
+                            pod = d.pod,
+                            pres = d.pres,
+                            clouds = d.clouds,
+                            vis = d.vis,
+                            wind_spd = d.wind_spd,
+                            wind_cdir_full = d.wind_cdir_full,
+                            slp = d.slp,
+                            datetime = d.datetime,
+                            ts = d.ts,
+                            dewpt = d.dewpt,
+                            uv = d.uv,
+                            dni = d.dni,
+                            timestamp_utc = d.timestamp_utc.HasValue ? DateTime.SpecifyKind(d.timestamp_utc.Value, DateTimeKind.Utc) : (DateTime?)null,
+                            ghi = d.ghi,
+                            dhi = d.dhi,
+                            timestamp_local = d.timestamp_local.HasValue ? DateTime.SpecifyKind(d.timestamp_local.Value, DateTimeKind.Utc) : (DateTime?)null,
+                            temp = d.temp,
+                            app_temp = d.app_temp,
+                            snow = d.snow,
+                            solar_rad = d.solar_rad,
+                            pop = d.pop,
+                            ozone = d.ozone,
+                            clouds_hi = d.clouds_hi,
+                            clouds_low = d.clouds_low,
+                            clouds_mid = d.clouds_mid,
+                            wind_cdir = d.wind_cdir,
+                            wind_dir = d.wind_dir,
+                            precip = d.precip,
+                            wind_gust_spd = d.wind_gust_spd,
+                            snow_depth = d.snow_depth,
+                            rh = d.rh
+                        }).ToList();
+
+                        context.DataPoints.AddRange(dataPointsList);
+
+                        //foreach (var datumDto in weatherRoot.data)
+                        //{
+                        //    var datumEntity = _mapper.Map<Datum>(datumDto);
+                        //    datumEntity.WeatherId = weatherEntity.Id; // Ensure proper foreign key assignment
+                        //    context.DataPoints.Add(datumEntity);
+                        //}
+
+                        await context.SaveChangesAsync();
                     }
                 }//end of response.isSuccesfull if
                 else
