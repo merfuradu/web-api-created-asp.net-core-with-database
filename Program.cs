@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
+
 //using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 //using Microsoft.Extensions.DependencyInjection;
 //using Microsoft.Extensions.Hosting;
@@ -13,6 +15,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(MyAllowSpecificOrigins, builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
+
+//CONFIGURE LOGGING TO WRITE TO FILE
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
+
 
 //builder.Services.AddTransient<WeatherWorker>();
 

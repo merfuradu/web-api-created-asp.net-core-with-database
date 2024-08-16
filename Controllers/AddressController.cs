@@ -12,11 +12,12 @@ namespace WebAPI_week1.Controllers
     {
         private readonly IMapper _mapper;
         private readonly PersonsDB _context;
-
-        public AddressController(PersonsDB context, IMapper mapper)
+        private readonly ILogger<AddressController> _logger;
+        public AddressController(PersonsDB context, IMapper mapper, ILogger<AddressController> logger)
         {
             _mapper = mapper;
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet("GetAddresses")]
@@ -24,6 +25,7 @@ namespace WebAPI_week1.Controllers
         {
             var addresses = await _context.Addresses.ToListAsync();
             var addressesDto = _mapper.Map<List<Address>>(addresses);
+            _logger.LogInformation("The client made a GET Request to all of the addresses.");
             return Ok(addressesDto);
         }
 
@@ -37,7 +39,7 @@ namespace WebAPI_week1.Controllers
             {
                 return NotFound();
             }
-
+            _logger.LogInformation("The client made a GET Request to get an address by ID : {ID}.", id);
             return Ok(addressDto);
         }
 

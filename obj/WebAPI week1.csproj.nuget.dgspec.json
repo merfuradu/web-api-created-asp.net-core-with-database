@@ -76,6 +76,18 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "NLog": {
+              "target": "Package",
+              "version": "[5.3.3, )"
+            },
+            "NLog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[5.3.12, )"
+            },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[5.3.12, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -83,6 +95,10 @@
             "Quartz": {
               "target": "Package",
               "version": "[3.13.0, )"
+            },
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

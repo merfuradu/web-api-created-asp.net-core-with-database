@@ -33,25 +33,33 @@ namespace WebAPI_week1.WeatherWorkers
             {
                 _logger.LogInformation("WeatherWorker running at: {time}", DateTimeOffset.Now);
 
-                await FetchAndSaveWeatherDataAsync();
-
+                try
+                {
+                    await FetchAndSaveWeatherDataAsync();
+                    _logger.LogInformation("Weather data fetched and saved succesfully at {time}.", DateTimeOffset.Now);
+                }
+                catch (Exception ex) 
+                {
+                    _logger.LogError(ex, "An error occured while fetching and saving weather data at {time}.", DateTimeOffset.Now);
+                }
                 await Task.Delay(1500000, cancellationToken); // Delay for 1500 seconds
             }
         }
 
         private async Task FetchAndSaveWeatherDataAsync()
         {
+            _logger.LogInformation("Starting data fetch and save operation...");
+
             using var scope = _serviceScopeFactory.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<PersonsDB>();
             var httpClient = _httpClientFactory.CreateClient();
 
             //deleting the old data
+            _logger.LogInformation("Deleting old weather data...");
+
             context.DataPoints.RemoveRange(context.DataPoints);
             context.Weathers.RemoveRange(context.Weathers);
             await context.SaveChangesAsync();
-
-
-
 
             var request = new HttpRequestMessage
             {
@@ -64,6 +72,7 @@ namespace WebAPI_week1.WeatherWorkers
                 },
             };
 
+            _logger.LogInformation("Sending HTTP request to weather API...");
             using (var response = await httpClient.SendAsync(request))
             {
                 if (response.IsSuccessStatusCode)
@@ -125,15 +134,9 @@ namespace WebAPI_week1.WeatherWorkers
                         }).ToList();
 
                         context.DataPoints.AddRange(dataPointsList);
-
-                        //foreach (var datumDto in weatherRoot.data)
-                        //{
-                        //    var datumEntity = _mapper.Map<Datum>(datumDto);
-                        //    datumEntity.WeatherId = weatherEntity.Id; // Ensure proper foreign key assignment
-                        //    context.DataPoints.Add(datumEntity);
-                        //}
-
                         await context.SaveChangesAsync();
+
+                        _logger.LogInformation("Weather data saved successfully.");
                     }
                 }//end of response.isSuccesfull if
                 else
